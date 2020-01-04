@@ -4,6 +4,9 @@ import microhazle.channels.abstrcation.hazelcast.IMessage;
 
 import java.util.Date;
 
+/**
+ * request to put an assignment note
+ */
 public class NotesPutMessage implements IMessage {
     public String getToWhom() {
         return toWhom;

@@ -2,6 +2,9 @@ package micro.examples.ipc;
 
 import microhazle.channels.abstrcation.hazelcast.IReply;
 
+/**
+ * reponse of request to put note
+ */
 public class NotesPutResponse implements IReply {
 
     public String getTimeStamp() {

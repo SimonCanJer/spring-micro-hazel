@@ -13,6 +13,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The class handles the NotePutMessage
+ * @see NotesPutMessage
+ */
 public class ProcessPutNote extends AbstractProcessor<NotesPutMessage> {
     ProcessPutNote()
     {
@@ -23,6 +27,7 @@ public class ProcessPutNote extends AbstractProcessor<NotesPutMessage> {
         this.repo=repo;
         onReady();
     }
+    //note that Autowired will have an effect when the class exported as a bean
     @Autowired
     IToDoRepository repo;
     @PostConstruct

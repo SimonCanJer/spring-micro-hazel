@@ -18,25 +18,23 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.lang.reflect.Field;
-import java.net.ResponseCache;
 import java.util.*;
 import java.util.function.Consumer;
 
+/**
+ * The configuration class exports interception beans
+ * reacting on BeanFactory ready and context ready events,
+ * initalize hazelcast mechanism and  exports request channels as beansd fro injection
+ *
+ */
 
 @Configuration
 public class MicrohazelWizard {
-    Logger logger= Logger.getLogger(this.getClass());
-   Set<Class<? extends microhazle.processors.api.AbstractProcessor>> processorBeans = new HashSet<>();
-    Set<Class<? extends IMessage>> usedMessages = new HashSet<>();
-    List<PosponedConnector> connectors = new ArrayList<>();
-    Set<IReadyListener> theyNeedHazelReady = new HashSet<>();
-    private Map<Class,String> mapClassToSystemId = new HashMap<>();
-   /// Map<Class,InjectedChannel> mapInjectedChannels = new HashMap<>();
-
-
-    @Bean
+    private Logger logger= Logger.getLogger(this.getClass());
+   private Set<Class<? extends IMessage>> usedMessages = new HashSet<>();
+    private List<PosponedConnector> connectors = new ArrayList<>();
+    private Set<IReadyListener> theyNeedHazelReady = new HashSet<>();
+      @Bean
     ConfigProperties configProperties()
     {
         return new ConfigProperties();
@@ -94,7 +92,15 @@ public class MicrohazelWizard {
        }
    };
 
-
+    /**
+     * collects annotations marking classers as emitters of
+     * request messages
+     * @param bd bean definition
+     * @param configurableListableBeanFactory- factory
+     * @throws ClassNotFoundException
+     * @see SendsRequestMessages
+     *
+     */
     void handleBeanDefinition(BeanDefinition bd, ConfigurableListableBeanFactory configurableListableBeanFactory) throws ClassNotFoundException {
         Class c=Class.forName(bd.getBeanClassName());
         SendsRequestMessages ann= (SendsRequestMessages) c.getAnnotation(SendsRequestMessages.class);
@@ -109,6 +115,15 @@ public class MicrohazelWizard {
     }
     IReadyListener[] refReadyListener= new IReadyListener[1];
 
+    /**
+     * extracts information about request message emitted by a bean,
+     * dynamically defines a bean backed by implementation of IClientProducer, to be injected
+     * into beans are marked as message emiters
+     * @param rm request message definition
+     * @param configurableListableBeanFactory - bean factory
+     * @see IClientProducer
+     * @see InjectedChannelBean
+     */
     private void handleRequestClass(RequestMessage rm, ConfigurableListableBeanFactory configurableListableBeanFactory) {
         usedMessages.add(rm.value());
 
@@ -167,13 +182,11 @@ public class MicrohazelWizard {
                 mounter= IBuild.INSTANCE.forApplication(properties.hazelcastFederation());
                 Map<String, AbstractProcessor> map=applicationContext.getBeansOfType(AbstractProcessor.class);
                 logger.trace("scanning processor beans: their map is "+map);
-                map.values().stream().forEach(p-> mounter.addProcessor(p));
+                map.values().forEach(p-> mounter.addProcessor(p));
                 try {
                     ProcessorProvider pp = applicationContext.getBean(ProcessorProvider.class);
-                    if (pp != null) {
-                        logger.trace("ProcessorProvider bean found, purging...");
-                        pp.purge();
-                    }
+                    logger.trace("ProcessorProvider bean found, purging...");
+                    pp.purge();
                 }
                 catch(Exception e)
                 {
@@ -181,9 +194,9 @@ public class MicrohazelWizard {
                 }
                 logger.trace("adding request classes");
 
-                usedMessages.stream().forEach(c->mounter.addRequestClass(c));
+                usedMessages.forEach(c->mounter.addRequestClass(c));
                 stub= mounter.mountAndStart((r)->{stub=r;System.out.println("Spring Microhazel : stub ready");});
-                theyNeedHazelReady.stream().forEach(r->r.ready());
+                theyNeedHazelReady.forEach(IReadyListener::ready);
                 IStandalone.HOLDER_ASSIGNER.accept(new Runnable() {
                     @Override
                     public void run() {
@@ -196,8 +209,6 @@ public class MicrohazelWizard {
         };
 
     }
-
-
 
     private void connect(PosponedConnector c) {
         stub.getChannel(c.req,c.consumer);

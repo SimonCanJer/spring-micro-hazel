@@ -5,6 +5,9 @@ import microhazle.channels.abstrcation.hazelcast.IReply;
 
 import java.util.List;
 
+/**
+ * Response on query notes
+ */
 public class QueryResponse implements IReply {
     public List<ToDo> getResult() {
         return result;

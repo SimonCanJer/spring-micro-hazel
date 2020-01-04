@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Demo entity keeping a note to do
+ */
 @Entity
 @Access(AccessType.FIELD)
 public class ToDo implements Serializable {

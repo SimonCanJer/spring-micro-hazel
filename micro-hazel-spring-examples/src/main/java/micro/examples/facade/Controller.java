@@ -18,9 +18,16 @@ import javax.annotation.PostConstruct;
 import java.rmi.UnknownHostException;
 import java.util.Optional;
 
+/**
+ * The class of controller handles Request for asynchronous query
+ * and put operations assignments.
+ * The class is a facade, all the operations executed by microservices.
+ */
 @RestController
 @SendsRequestMessages({@RequestMessage(NotesQueryMessage.class),@RequestMessage(NotesPutMessage.class)})
 public class Controller {
+    // Message producers for query and put requests are
+    // injected
     @Autowired
     @Qualifier("micro.examples.ipc.NotesQueryMessage")
     IClientProducer<NotesQueryMessage> queryChannel;
@@ -30,7 +37,7 @@ public class Controller {
     @PostConstruct
     void connect()
     {
-        System.out.println("connected");
+
 
     }
     @GetMapping("/get_notes")
@@ -52,8 +59,7 @@ public class Controller {
     {
 
         try {
-            System.out.println("for="+user);
-            Mono<NotesPutResponse> o=putChannel.post(new NotesPutMessage(user,theme,null));
+           Mono<NotesPutResponse> o=putChannel.post(new NotesPutMessage(user,theme,null));
            return ResponseEntity.ok(o);
         } catch (UnknownHostException e) {
             e.printStackTrace();

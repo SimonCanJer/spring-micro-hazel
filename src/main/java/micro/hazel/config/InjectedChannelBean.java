@@ -10,6 +10,15 @@ import java.rmi.UnknownHostException;
 import java.util.concurrent.Future;
 import java.util.function.Consumer;
 
+/**
+ * The framework class implements
+ * @see IClientProducer<T>  interface, and provides inject interface instances
+ * into another beans before underlaying Hazelcast objects are initialized and interfaces are exported
+ * The class initalized after injection
+ * @see InjectedChannelBean()
+ * @see #connect()
+ * @param <T>
+ */
 class InjectedChannelBean<T extends IMessage> implements IClientProducer<T>
 {
 

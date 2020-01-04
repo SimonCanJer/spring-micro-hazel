@@ -8,6 +8,13 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
 
+/**
+ * The API class provides initializer of non MVC/non tomcat, as wel other serverless
+ * microservice communication over underlaying Hazelcast Queues mechanism
+ * "micro.hazel.config' is mandatory, whewhile ${microhazel.standalone.config}"
+ * refers to configure  classes of business logic is served by underlaying Hazelcast based communication.
+ * @see #main (server is kept by waiting for join for message pooling threads
+ */
 @SpringBootApplication
 @ComponentScans({@ComponentScan("micro.hazel.config"),@ComponentScan("${microhazel.standalone.config}")})
 public class MicrohazelStandaloneApplication extends SpringApplication {

@@ -4,6 +4,9 @@ import microhazle.channels.abstrcation.hazelcast.IMessage;
 
 import java.util.Date;
 
+/**
+ * Request to query note
+ */
 public class NotesQueryMessage implements IMessage {
     public String getNoteReason() {
         return noteReason;

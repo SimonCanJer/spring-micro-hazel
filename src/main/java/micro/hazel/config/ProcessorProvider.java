@@ -7,6 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Arrays;
 
+/**
+ * The abstrcat class prototypes beans exporting
+ * message processors
+ * @see AbstractProcessor
+ *
+ */
 public abstract class ProcessorProvider  {
     @Autowired
     IMounter mounter;

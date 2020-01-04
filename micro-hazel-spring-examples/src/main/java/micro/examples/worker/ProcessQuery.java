@@ -11,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The class handles  the
+ * @see NotesQueryMessage
+ */
 public class ProcessQuery extends AbstractProcessor<NotesQueryMessage> {
     ProcessQuery(){}
     public ProcessQuery(IToDoRepository repo)
@@ -18,6 +22,7 @@ public class ProcessQuery extends AbstractProcessor<NotesQueryMessage> {
         this.repository=repo;
 
     }
+    //Autowired has an effectwhen exported as a bean.
     @Autowired
     IToDoRepository repository;
     @Override

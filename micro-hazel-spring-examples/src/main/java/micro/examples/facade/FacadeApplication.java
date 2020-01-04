@@ -7,6 +7,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.net.ServerSocket;
 
+/**
+ * The class initiaizes web application on facade of
+ * ToDo assignments.
+ */
 @SpringBootApplication
 @EnableWebMvc
 @ComponentScan({"micro.examples.facade","micro.hazel.config",})
