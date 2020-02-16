@@ -9,8 +9,9 @@ import java.util.Arrays;
 
 /**
  * The abstrcat class prototypes beans exporting
- * message processors
+ * message processors to mounter
  * @see AbstractProcessor
+ * @see IMounter
  *
  */
 public abstract class ProcessorProvider  {

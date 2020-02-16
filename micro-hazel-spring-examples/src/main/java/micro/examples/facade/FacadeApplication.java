@@ -1,5 +1,6 @@
 package micro.examples.facade;
 
+import micro.micro.hazel.server.IStandalone;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -13,7 +14,7 @@ import java.net.ServerSocket;
  */
 @SpringBootApplication
 @EnableWebMvc
-@ComponentScan({"micro.examples.facade","micro.hazel.config",})
+@ComponentScan({"micro.examples.facade","micro.hazel.config"})
 public class FacadeApplication {
     private static final int[] PORT_RANGE =new int[]{8080,8099} ;
 
@@ -30,6 +31,11 @@ public class FacadeApplication {
 
             }
         }
+        System.getProperties().put("services.federation.name","services.federation");
+        System.getProperties().put("spring.application.name","notes_service");
+        System.getProperties().put(IStandalone.SERVICES_INET_PROTO,"http");
+        System.getProperties().put("app_instance","notes_service");
+        System.getProperties().put(IStandalone.SERVICES_INET_PATTERNS,"10.\\d{1,3}.\\d{1,3}.\\d{1,3}");
         SpringApplication.run(FacadeApplication.class);
     }
 }

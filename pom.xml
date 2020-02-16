@@ -37,7 +37,7 @@
         <dependency>
             <groupId>micro-workers</groupId>
             <artifactId>micro-hazel</artifactId>
-            <version>1.0.6-SNAPSHOT</version>
+            <version>1.0.7-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>

@@ -4,6 +4,7 @@ import microhazle.channels.abstrcation.hazelcast.IReply;
 
 /**
  * reponse of request to put note
+ * @see NotesPutMessage
  */
 public class NotesPutResponse implements IReply {
 

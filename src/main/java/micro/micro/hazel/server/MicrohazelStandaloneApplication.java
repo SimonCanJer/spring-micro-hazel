@@ -23,13 +23,49 @@ public class MicrohazelStandaloneApplication extends SpringApplication {
     {
         HOLDER=r;
     }
+
+    /**
+     * the standard main method to be called as for standalone application
+     * @param args standard args
+     */
     static public void main(String [] args)
     {
+        if(null!=System.getProperty("hazelcast.discovery.skip")) {
+            if (null == System.getProperties().get("server.port")) {
+                System.setProperty("server.port", "-1");
+            }
+            if (null == System.getProperties().get("spring.application.name")) {
+                System.setProperty("spring.application.name", "noName");
+            }
+            if (null == System.getProperties().get("spring.application.name")) {
+                System.setProperty("spring.application.name", "noName");
+            }
+            if (null == System.getProperties().get("services.populate.protocol")) {
+                System.setProperty("services.populate.protocol", "noName");
+
+            }
+            if(System.getProperty(IStandalone.SERVICES_INET_PROTO)==null)
+            {
+                System.setProperty(IStandalone.SERVICES_INET_PROTO, "http");
+            }
+            if(System.getProperty(IStandalone.SERVICES_INET_PATTERNS)==null)
+            {
+                System.setProperty(IStandalone.SERVICES_INET_PATTERNS, "");
+            }
+        }
+
         SpringApplicationBuilder builder= new SpringApplicationBuilder();
         builder.web(WebApplicationType.NONE).sources(MicrohazelStandaloneApplication.class).run(args);
         HOLDER.run();
 
     }
+
+    /**
+     * This method should be called in a case when calling underlaying initialization from
+     * upper level main method and another source class also must be considered(it cam be SpringApplication,of @Config annotatated for example)
+     * @param upper
+     * @param args
+     */
     static public void main(Class upper,String [] args)
     {
         SpringApplicationBuilder builder= new SpringApplicationBuilder();

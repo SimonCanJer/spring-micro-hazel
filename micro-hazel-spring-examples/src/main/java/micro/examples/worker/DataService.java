@@ -33,7 +33,15 @@ public class DataService {
         System.setProperty( "spring.datasource.username","");
         System.setProperty( "spring.datasource.password","");
         System.setProperty("app_instance","Data Service");
-        System.setProperty("microhazel.standalone.config","micro.examples.worker");
+        System.setProperty("microhazel.standalone.config","micro.examples.worker");//reference to root package of running application
+        //basically we need here path to package, where concrete configuration is beeing located
+        System.getProperties().put("services.federation.name","services.federation");
+        /**
+         * additionally we can populate over hazelcast port range where our service instances must be initialized in nw
+         */
+        System.getProperties().put("services.run_ports","9090,10000");
+
+        System.getProperties().put("hazelcast.discovery.skip","true");
         MicrohazelStandaloneApplication.main(args);
     }
 

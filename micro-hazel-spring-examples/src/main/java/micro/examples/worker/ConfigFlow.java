@@ -23,8 +23,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @Configuration
 @EnableJpaRepositories("micro.examples.repository")
-@EntityScan("micro.examples.data.model")
-@ComponentScan("micro.hazel.config")
+@EntityScan("micro.examples.data.model")///this is only for data repository
+@ComponentScan("micro.hazel.config") // refers to general purposes config
 public class ConfigFlow {
 
     ConfigFlow()
