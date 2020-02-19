@@ -16,6 +16,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.io.Serializable;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
@@ -145,7 +147,7 @@ public class MicrohazelWizard {
     {
         return new IMounter() {
             @Override
-            public <T extends IMessage> void addProcessor(AbstractProcessor<T> abstractProcessor) {
+            public <T extends IMessage, S extends Serializable> void addProcessor(AbstractProcessor<T,S> abstractProcessor) {
                 mounter.addProcessor(abstractProcessor);
             }
 

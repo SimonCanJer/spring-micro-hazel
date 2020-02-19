@@ -15,7 +15,7 @@ import java.util.Set;
  * The class handles  the
  * @see NotesQueryMessage
  */
-public class ProcessQuery extends AbstractProcessor<NotesQueryMessage> {
+public class ProcessQuery extends AbstractProcessor<NotesQueryMessage,String> {
     ProcessQuery(){}
     public ProcessQuery(IToDoRepository repo)
     {

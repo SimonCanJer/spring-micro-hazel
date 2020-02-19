@@ -5,6 +5,7 @@ import microhazle.channels.abstrcation.hazelcast.IMessage;
 import microhazle.processors.api.AbstractProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -17,12 +18,12 @@ import java.util.Arrays;
 public abstract class ProcessorProvider  {
     @Autowired
     IMounter mounter;
-    protected <T extends IMessage > void addProcessor(AbstractProcessor<T> p)
+    protected <T extends IMessage, S extends Serializable > void addProcessor(AbstractProcessor<T,S> p)
     {
         mounter.addProcessor(p);
 
     }
-    protected abstract   <T extends IMessage > AbstractProcessor<T>[] getList();
+    protected abstract   <T extends IMessage, S extends Serializable> AbstractProcessor<T,S>[] getList();
     void purge()
     {
         Arrays.stream(getList()).forEach(p->mounter.addProcessor(p));

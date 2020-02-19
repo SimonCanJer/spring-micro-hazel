@@ -12,6 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import java.io.Serializable;
+
 /**
  * The configuration class configures
  * back end processors handling  note put and query requests.
@@ -43,7 +45,7 @@ public class ConfigFlow {
     {
         return new ProcessorProvider() {
             @Override
-            protected <T extends IMessage> AbstractProcessor<T>[] getList() {
+            protected <T extends IMessage, S extends Serializable> AbstractProcessor<T,S>[] getList() {
                 return new AbstractProcessor[]{new ProcessPutNote(repo),new ProcessQuery(repo)};
             }
         };

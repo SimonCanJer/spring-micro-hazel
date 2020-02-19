@@ -17,7 +17,7 @@ import java.util.Set;
  * The class handles the NotePutMessage
  * @see NotesPutMessage
  */
-public class ProcessPutNote extends AbstractProcessor<NotesPutMessage> {
+public class ProcessPutNote extends AbstractProcessor<NotesPutMessage,String> {
     ProcessPutNote()
     {
 
