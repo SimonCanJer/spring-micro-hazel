@@ -8,6 +8,7 @@ import micro.ipc.processing.RequestMessage;
 import micro.ipc.processing.SendsRequestMessages;
 import microhazle.building.api.IClientProducer;
 import microhazle.channels.abstrcation.hazelcast.IReply;
+import org.graalvm.compiler.core.common.SuppressSVMWarnings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -46,6 +47,7 @@ public class Controller {
 
 
     }
+    @SuppressWarnings("all")
     @GetMapping("/notes_sync")
     @ResponseBody
     ResponseEntity<QueryResponse> notesForThisUser(@RequestParam("for") String user)
@@ -60,6 +62,8 @@ public class Controller {
             return (ResponseEntity<QueryResponse>) ResponseEntity.of(Optional.empty()).status(HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
+
+    @SuppressWarnings("all")
     @GetMapping("/get_notes")
     @ResponseBody
     ResponseEntity<Mono<QueryResponse>> getNotesForThisUser(@RequestParam("for") String user)
@@ -73,6 +77,7 @@ public class Controller {
             return (ResponseEntity<Mono<QueryResponse>>) ResponseEntity.of(Optional.empty()).status(HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
+    @SuppressWarnings("all")
     @PutMapping("/put_note")
     @ResponseBody
     ResponseEntity<Mono<NotesPutResponse>> putNote(@RequestParam("for") String user, @RequestParam("what") String theme)
