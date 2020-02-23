@@ -1,8 +1,7 @@
 package micro.hazel.config;
 
-import micro.micro.hazel.server.IStandalone;
+import micro.hazel.server.IStandalone;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 /**
  * The bean collect and exposes main properties

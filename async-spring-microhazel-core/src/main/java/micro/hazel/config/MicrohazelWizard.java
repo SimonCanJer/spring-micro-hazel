@@ -2,7 +2,7 @@ package micro.hazel.config;
 
 import micro.ipc.processing.RequestMessage;
 import micro.ipc.processing.SendsRequestMessages;
-import micro.micro.hazel.server.IStandalone;
+import micro.hazel.server.IStandalone;
 import microhazle.building.api.*;
 import microhazle.channels.abstrcation.hazelcast.*;
 import microhazle.processors.api.AbstractProcessor;
@@ -52,14 +52,15 @@ public class MicrohazelWizard {
             public void postProcessBeanFactory(ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
 
                 Iterator<String> it= configurableListableBeanFactory.getBeanNamesIterator();
+                String strBean=null;
                 while(it.hasNext())
                 {
 
                     try {
-                        BeanDefinition bd= configurableListableBeanFactory.getBeanDefinition(it.next());
+                        BeanDefinition bd= configurableListableBeanFactory.getBeanDefinition(strBean=it.next());
                         handleBeanDefinition(bd,configurableListableBeanFactory);
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        logger.info(" bean named as '"+strBean+"' is not processed, exception message +"+String.valueOf(e.getMessage()));
                     }
                 }
             }

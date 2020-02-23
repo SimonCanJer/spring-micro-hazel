@@ -1,4 +1,4 @@
-package micro.micro.hazel.server;
+package micro.hazel.server;
 
 import java.util.function.Consumer;
 

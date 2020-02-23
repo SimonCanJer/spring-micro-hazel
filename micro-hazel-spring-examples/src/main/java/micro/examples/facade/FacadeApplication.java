@@ -1,6 +1,6 @@
 package micro.examples.facade;
 
-import micro.micro.hazel.server.IStandalone;
+import micro.hazel.server.IStandalone;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;

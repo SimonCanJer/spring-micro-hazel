@@ -1,6 +1,5 @@
-package micro.micro.hazel.server;
+package micro.hazel.server;
 
-import microhazle.building.api.IBuild;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,7 +11,8 @@ import org.springframework.context.annotation.ComponentScans;
  * The API class provides initializer of non MVC/non tomcat, as wel other serverless
  * microservice communication over underlaying Hazelcast Queues mechanism
  * "micro.hazel.config' is mandatory, whewhile ${microhazel.standalone.config}"
- * refers to configure  classes of business logic is served by underlaying Hazelcast based communication.
+ * refers to  classes configuring of custom business logic, which  is served by the underlaying Hazelcast
+ * based communication mechanism.
  * @see #main (server is kept by waiting for join for message pooling threads
  */
 @SpringBootApplication
@@ -33,9 +33,6 @@ public class MicrohazelStandaloneApplication extends SpringApplication {
         if(null!=System.getProperty("hazelcast.discovery.skip")) {
             if (null == System.getProperties().get("server.port")) {
                 System.setProperty("server.port", "-1");
-            }
-            if (null == System.getProperties().get("spring.application.name")) {
-                System.setProperty("spring.application.name", "noName");
             }
             if (null == System.getProperties().get("spring.application.name")) {
                 System.setProperty("spring.application.name", "noName");

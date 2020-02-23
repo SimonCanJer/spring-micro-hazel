@@ -1,11 +1,6 @@
 package micro.examples.worker;
 
-import micro.micro.hazel.server.MicrohazelStandaloneApplication;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-
-import java.net.ServerSocket;
+import micro.hazel.server.MicrohazelStandaloneApplication;
 
 
 /**
