@@ -2,7 +2,7 @@ set mypath=%cd%
 echo %mypath%
 mkdir %1
 cd %1
-git clone https://SimonCanJer:PolarWolf1957@github.com/SimonCanJer/microhazle.git
+git clone https://github.com/SimonCanJer/microhazle.git
 cd microhazle
 call mvn install
 cd %mypath%
