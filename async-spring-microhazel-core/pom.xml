@@ -15,7 +15,7 @@
         <groupId>micro-workers</groupId>
         <artifactId>micro-spring-hazel</artifactId>
         <version>1.0.4</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <build>
         <plugins>
