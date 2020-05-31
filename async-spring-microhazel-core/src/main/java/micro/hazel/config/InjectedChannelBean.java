@@ -21,9 +21,7 @@ import java.util.function.Consumer;
  */
 class InjectedChannelBean<T extends IMessage> implements IClientProducer<T>
 {
-
-
-    private final Class<? extends IMessage> marshalled;
+   private final Class<? extends IMessage> marshalled;
     private final IClientRoutingGateway router;
     private IClientProducer channel;
 
@@ -33,8 +31,6 @@ class InjectedChannelBean<T extends IMessage> implements IClientProducer<T>
         this.marshalled=clazz;
         this.router = router;
         listener[0]=this::connect;
-
-
     }
 
     void connect()

@@ -52,8 +52,8 @@ public class MicrohazelWizard {
                 Iterator<String> it = configurableListableBeanFactory.getBeanNamesIterator();
                 String strBean = null;
                 while (it.hasNext()) {
-
                     try {
+
                         BeanDefinition bd = configurableListableBeanFactory.getBeanDefinition(strBean = it.next());
                         handleBeanDefinition(bd, configurableListableBeanFactory);
                     } catch (Exception e) {
@@ -64,7 +64,6 @@ public class MicrohazelWizard {
 
         };
         return handler;
-
     }
 
 
@@ -82,8 +81,6 @@ public class MicrohazelWizard {
      * is ready (when bean factory is ready), real router is not obtained still
      */
     IClientRoutingGateway router = new IClientRoutingGateway() {
-
-
         @Override
         public <T extends IMessage> IClientProducer<T> getChannel(Class<T> aClass, Consumer<IClientProducer<T>> consumer) {
             return stub.getChannel(aClass, consumer);
@@ -91,7 +88,7 @@ public class MicrohazelWizard {
     };
 
     /**
-     * collects annotations marking classers as emitters of
+     * collects annotations marking classes as emitters of
      * request messages
      *
      * @param bd                               bean definition
@@ -100,15 +97,14 @@ public class MicrohazelWizard {
      * @see SendsRequestMessages
      */
     void handleBeanDefinition(BeanDefinition bd, ConfigurableListableBeanFactory configurableListableBeanFactory) throws ClassNotFoundException {
-        Class c = Class.forName(bd.getBeanClassName());
+        Class c = bd.getResolvableType().resolve();
+        System.out.println("##Bean class "+bd.getBeanClassName());
         SendsRequestMessages ann = (SendsRequestMessages) c.getAnnotation(SendsRequestMessages.class);
         if (ann != null) {
 
             logger.trace("bean which uses microhazel destination queue detectected : " + c);
             Arrays.stream(ann.value()).forEach(rm -> handleRequestClass(rm, configurableListableBeanFactory));
         }
-
-
     }
 
     IReadyListener[] refReadyListener = new IReadyListener[1];
@@ -191,6 +187,7 @@ public class MicrohazelWizard {
      *
      * @return
      */
+
     @Bean
     public ApplicationContextAware onContextReady() {
         return new ApplicationContextAware() {
@@ -202,11 +199,9 @@ public class MicrohazelWizard {
                 // declare application id as it must be see by all the consumers processing hazelcast queue
                 mounter = IBuild.INSTANCE.forApplication(properties.hazelcastFederation());
                 // Normally it will work only on server(consumer)
-
                 addProcessorsWhichAreDeclaredAsBeans(applicationContext);
                 addProcessorsUsingProviderBean(applicationContext);
                 logger.trace("adding request classes");
-
                 usedMessages.forEach(c -> mounter.addRequestClass(c));
                 if (null == System.getProperty("hazelcast.discovery.skip")) {
                     populateServiceLocation(applicationContext);
@@ -223,11 +218,8 @@ public class MicrohazelWizard {
                         mounter.holdServer();
                     }
                 });
-
-
             }
         };
-
     }
 
     /**
@@ -294,8 +286,5 @@ public class MicrohazelWizard {
                 }
             }));
         }
-
     }
-
-
 }
