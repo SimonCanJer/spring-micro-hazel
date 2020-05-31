@@ -33,10 +33,10 @@ import java.util.regex.Pattern;
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(loader= AnnotationConfigContextLoader.class, classes={ MicrohazelWizardTest.Initial.class})
+@ContextConfiguration(loader= AnnotationConfigContextLoader.class, classes={ MicrohazelWizardTest.Initial.class,MicrohazelWizard.class})
 public class MicrohazelWizardTest {
   @Configuration
-    static class Initial extends MicrohazelWizard
+    static class Initial
     { @Bean
       public static DummySender dummySender()
      {
