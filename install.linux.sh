@@ -1,7 +1,7 @@
 mypath="$(pwd)"
 sudo  mkdir -p "$1"
 cd   "$1" || return
-git   clone https://SimonCanJer:PolarWolf1957@github.com/SimonCanJer/microhazle.git
+git   clone https://SimonCanJer/microhazle.git
 cd    microhazle || exit
 mvn    install
 cd    "$mypath" || return
